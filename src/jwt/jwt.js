@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const { UNAUTHORIZED } = require('../utils/httpStatus');
+require('dotenv').config();
 
 const secret = process.env.JWT_SECRECT;
 
