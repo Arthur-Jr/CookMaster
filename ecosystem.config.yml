@@ -1,6 +1,6 @@
 apps:
   -name: cookmaster
-  script: /src/api/server.js
+  script: ./src/api/server.js
   exec_mode: cluster
   instances: 2
   max_memory_restart: 200M
