@@ -6,7 +6,7 @@
   "scripts": {
     "test": "mocha ./src/integration-tests/**/*$NAME*.{test,spec}.js --exit",
     "test:coverage": "nyc --all npm test",
-    "start": "node .",
+    "start": "pm2-runtime start ecosystem.config.yml",
     "dev": "nodemon ."
   },
   "repository": {
@@ -30,6 +30,7 @@
     "jsonwebtoken": "^8.5.1",
     "mongodb": "^3.5.9",
     "multer": "^1.4.4",
+    "pm2": "^5.1.2",
     "shelljs": "^0.8.5"
   },
   "devDependencies": {

@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const { UNAUTHORIZED } = require('../utils/httpStatus');
 
-const secret = 'testSecret';
+const secret = process.env.JWT_SECRECT;
 
 const jwtConfig = {
   expiresIn: '8h',
