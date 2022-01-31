@@ -33,16 +33,16 @@ describe('Testes da rota "recipes"', () => {
     const rootAdmin = { name: 'admin', email: 'root@email.com', password: adminPassword, role: 'admin' }
     const rootUser = { name: 'test', email: 'test@email.com', password: userPassword, role: 'user' }
     const rootUser2 = { name: 'test2', email: 'test2@email.com', password: userPassword, role: 'user' }
-    const db = connectionMock.db('Cookmaster');
+    const db = connectionMock.db('cookmaster');
     await db.collection('users').insertMany([rootAdmin, rootUser, rootUser2]);
   });
 
   after(async () => {
-    await connectionMock.db('Cookmaster').collection('recipes').deleteMany({});
-    await connectionMock.db('Cookmaster').collection('recipes').drop();
+    await connectionMock.db('cookmaster').collection('recipes').deleteMany({});
+    await connectionMock.db('cookmaster').collection('recipes').drop();
 
-    await connectionMock.db('Cookmaster').collection('users').deleteMany({});
-    await connectionMock.db('Cookmaster').collection('users').drop();
+    await connectionMock.db('cookmaster').collection('users').deleteMany({});
+    await connectionMock.db('cookmaster').collection('users').drop();
 
     MongoClient.connect.restore();
   });
@@ -116,7 +116,7 @@ describe('Testes da rota "recipes"', () => {
       expect(response.body).to.have.property('recipe');
       expect(response.body.recipe).to.have.property('_id');
 
-      const db = connectionMock.db('Cookmaster');
+      const db = connectionMock.db('cookmaster');
       const recipe = await db.collection('recipes').findOne({ _id: ObjectId(response.body.recipe._id) });
 
       expect(recipe).to.not.be.null;
@@ -136,7 +136,7 @@ describe('Testes da rota "recipes"', () => {
     });
 
     it('Deve retornar um "array" vazio se o BD estiver vazio', async () => {
-      await connectionMock.db('Cookmaster').collection('recipes').deleteMany({});
+      await connectionMock.db('cookmaster').collection('recipes').deleteMany({});
 
       response = await chai.request(server)
       .get('/recipes');
@@ -152,7 +152,7 @@ describe('Testes da rota "recipes"', () => {
     let recipe;
 
     before(async () => {
-      recipe = await connectionMock.db('Cookmaster').collection('recipes').insertOne({ name: 'ovo frito', ingredients: 'ovo', preparation: 'fritar' });
+      recipe = await connectionMock.db('cookmaster').collection('recipes').insertOne({ name: 'ovo frito', ingredients: 'ovo', preparation: 'fritar' });
     });
 
     it('Deve retornar a receita referente ao ID passado.', async () => {
@@ -228,7 +228,7 @@ describe('Testes da rota "recipes"', () => {
       expect(response.body._id).to.be.equal(recipeInfo._id);
       expect(response.body.name).to.be.equal('frango frito');
 
-      const editedRecipe = await connectionMock.db('Cookmaster')
+      const editedRecipe = await connectionMock.db('cookmaster')
       .collection('recipes').findOne({ _id: ObjectId(recipeInfo._id) });
 
       expect(editedRecipe.name).to.be.equal('frango frito');
@@ -270,7 +270,7 @@ describe('Testes da rota "recipes"', () => {
       expect(response.body._id).to.be.equal(recipeInfo._id);
       expect(response.body.name).to.be.equal('ovo frito');
 
-      const editedRecipe = await connectionMock.db('Cookmaster')
+      const editedRecipe = await connectionMock.db('cookmaster')
       .collection('recipes').findOne({ _id: ObjectId(recipeInfo._id) });
 
       expect(editedRecipe.name).to.be.equal('ovo frito');
@@ -308,32 +308,18 @@ describe('Testes da rota "recipes"', () => {
     
       expect(response).to.have.status(NO_CONTENT);
 
-      const deletedRecipe = await connectionMock.db('Cookmaster')
+      const deletedRecipe = await connectionMock.db('cookmaster')
       .collection('recipes').findOne({ _id: ObjectId(recipeInfo._id) });
 
       expect(deletedRecipe).to.be.null;
     });
     
-    it('Deve retornar status 401 se o token estiver expirado.', async () => {
+    it('Deve retornar status 200 se o token for de um admin.', async () => {
       recipe = await chai.request(server)
       .post('/recipes')
       .set('authorization', loginHash.body.token)
       .send({ name: 'ovo frito', ingredients: 'ovo', preparation: 'fritar' });
 
-      const { body: { recipe: recipeInfo } } = recipe;
-      const changedToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImVtYWlsIjoidGVzdDJAZW1haWwuY29tIiwicm9sZSI6ImFkbWluIiwiaWQiOiI2MWYxZTA3YjQ5NjAwYTQ2NjgyMDI1ZGYifSwiaWF0IjoxNjQzMjQxNTk1LCJleHAiOjE2NDMyNzAzOTV9.CzeSCZjsSSDaRCkeImkO1TzXTOtP_dHv5MbYNqUT3bk';
-
-      response = await chai.request(server)
-      .delete(`/recipes/${recipeInfo._id}`)
-      .set('authorization', changedToken);
-
-      expect(response).to.have.status(UNAUTHORIZED);
-      expect(response.body).to.be.a('object');
-      expect(response.body).to.have.property('message');
-      expect(response.body.message).to.be.equal('jwt expired');      
-    });
-
-    it('Deve retornar status 200 se o token for de um admin.', async () => {
       const { body: { recipe: recipeInfo } } = recipe;
 
       loginHash = await chai.request(server)
@@ -346,7 +332,7 @@ describe('Testes da rota "recipes"', () => {
     
       expect(response).to.have.status(NO_CONTENT);
 
-      const deletedRecipe = await connectionMock.db('Cookmaster')
+      const deletedRecipe = await connectionMock.db('cookmaster')
       .collection('recipes').findOne({ _id: ObjectId(recipeInfo._id) });
 
       expect(deletedRecipe).to.be.null;
@@ -399,7 +385,7 @@ describe('Testes da rota "recipes"', () => {
       expect(response.body).to.have.property('_id');
       expect(response.body._id).to.be.equal(recipeInfo._id);
 
-      const editedRecipe = await connectionMock.db('Cookmaster')
+      const editedRecipe = await connectionMock.db('cookmaster')
       .collection('recipes').findOne({ _id: ObjectId(recipeInfo._id) });
 
       expect(editedRecipe).to.have.property('image');
@@ -442,7 +428,7 @@ describe('Testes da rota "recipes"', () => {
       expect(response.body).to.have.property('_id');
       expect(response.body._id).to.be.equal(recipeInfo._id);
 
-      const editedRecipe = await connectionMock.db('Cookmaster')
+      const editedRecipe = await connectionMock.db('cookmaster')
       .collection('recipes').findOne({ _id: ObjectId(recipeInfo._id) });
 
       expect(editedRecipe).to.have.property('image');

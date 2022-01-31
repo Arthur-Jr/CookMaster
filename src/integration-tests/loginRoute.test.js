@@ -26,13 +26,13 @@ describe('Testes da rota "login".', () => {
     const newPassword = await cryptPassword('admin');
 
     const rootAdmin = { name: 'admin', email: 'root@email.com', password: newPassword, role: 'admin' }
-    const db = connectionMock.db('Cookmaster');
+    const db = connectionMock.db('cookmaster');
     await db.collection('users').insertOne(rootAdmin);
   });
 
   after(async () => {
-    await connectionMock.db('Cookmaster').collection('users').deleteMany({});
-    await connectionMock.db('Cookmaster').collection('users').drop();
+    await connectionMock.db('cookmaster').collection('users').deleteMany({});
+    await connectionMock.db('cookmaster').collection('users').drop();
     MongoClient.connect.restore();
   });
 
