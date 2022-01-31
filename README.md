@@ -70,7 +70,7 @@ npm install
   ![/recipes/:id](./public/edit-recipe.png)
   ![/recipes/auth](./public/edit-recipe-auth.png)
   
-  O end-point (PUT /recipes/:id)
+  O end-point (DELETE /recipes/:id)
   ![/recipes/:id](./public/delete-recipe.png)
   ![/recipes/auth](./public/delete-recipe-auth.png)
   
