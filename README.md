@@ -50,8 +50,34 @@ npm install
  
  * O que é necessário para fazer requisições e sua respostas:
  
-  /recipes
-  [/recipes](./public/get-all-recipes.png)
+  O end-point (GET /recipes)
+  ![/recipes](./public/get-all-recipes.png)
   
-  /recipes/:id
-  [/recipes/:id](./public/recipe-by-id.png)
+  O end-point (GET /recipes/:id)
+  ![/recipes/:id](./public/recipe-by-id.png)
+  
+  O end-point (POST /users)
+  ![/users](./public/register-user.png)
+
+  O end-point (POST /login)
+  ![/login](./public/user-login.png)
+  
+  O end-point (POST /recipes)
+  ![/recipes](./public/add-recipe.png)
+  ![/recipes/auth](./public/add-recipe-auth.png)
+  
+  O end-point (PUT /recipes/:id)
+  ![/recipes/:id](./public/edit-recipe.png)
+  ![/recipes/auth](./public/edit-recipe-auth.png)
+  
+  O end-point (PUT /recipes/:id)
+  ![/recipes/:id](./public/delete-recipe.png)
+  ![/recipes/auth](./public/delete-recipe-auth.png)
+  
+  O end-point (PUT /recipes/:id/image)
+  ![/recipes/:id](./public/add-recipe-image.png)
+  ![/recipes/auth](./public/add-recipe-image-auth.png)
+  
+  O end-point (GET /images/:id.jpeg)
+  ![/images/:id](./public/get-recipe-image.png)
+  
