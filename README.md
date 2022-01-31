@@ -24,17 +24,19 @@ Back-end:
 para fazer requisições de qualquer tipo diferente do GET.
 
 > Backend
-```bash
+
 Na raiz do projeto:
+```bash
 npm install
 ``` 
 ## Executando aplicação
 
 * Para rodar o back-end:
 
-  ```
   Na raiz do projeto:
-  npm run dev
+
+  ```
+  npm run start
   ```
 
 ## Executando Testes
