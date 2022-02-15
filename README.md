@@ -20,10 +20,9 @@ Back-end:
 
 ## Instalando Dependências
 
-É necessário utilizar o [Insomnia](https://insomnia.rest/download) ou [Postman](https://www.postman.com/)
-para fazer requisições de qualquer tipo diferente do GET.
+Clone o repositório:
 
-> Backend
+```git clone git@github.com:Arthur-Jr/CookMaster.git ```
 
 Na raiz do projeto:
 ```bash
@@ -49,6 +48,9 @@ npm install
   ```
   
  ## End-Points
+ 
+ É necessário utilizar o [Insomnia](https://insomnia.rest/download) ou [Postman](https://www.postman.com/)
+  para fazer requisições de qualquer tipo diferente do GET.
  
  * O que é necessário para fazer requisições e sua respostas:
  
